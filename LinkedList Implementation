@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+// Node structure for the linked list
+struct Node {
+    int row, col, value;
+    Node* next;
+    Node(int r, int c, int v) : row(r), col(c), value(v), next(nullptr) {}
+};
+
+int main() {
+    // Assume a 4x5 sparse matrix
+    int sparseMatrix[4][5] =
+    {
+        {0 , 0 , 3 , 0 , 4 },
+        {0 , 0 , 5 , 7 , 0 },
+        {0 , 0 , 0 , 0 , 0 },
+        {0 , 2 , 6 , 0 , 0 }
+    };
+
+    Node* head = nullptr;
+    Node* current = nullptr;
+
+    // Create a linked list to store non-zero elements
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (sparseMatrix[i][j] != 0) {
+                if (head == nullptr) {
+                    head = new Node(i, j, sparseMatrix[i][j]);
+                    current = head;
+                } else {
+                    current->next = new Node(i, j, sparseMatrix[i][j]);
+                    current = current->next;
+                }
+            }
+        }
+    }
+
+    // Print the linked list (compact form)
+    current = head;
+    while (current != nullptr) {
+        cout << current->row << " " << current->col << " " << current->value << endl;
+        current = current->next;
+    }
+
+    // Clean up the memory by deleting the linked list nodes
+    while (head != nullptr) {
+        current = head;
+        head = head->next;
+        delete current;
+    }
+
+    return 0;
+}
