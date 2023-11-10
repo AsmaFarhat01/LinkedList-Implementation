@@ -9,21 +9,30 @@ struct Node {
 };
 
 int main() {
-    // Assume a 4x5 sparse matrix
-    int sparseMatrix[4][5] =
-    {
-        {0 , 0 , 3 , 0 , 4 },
-        {0 , 0 , 5 , 7 , 0 },
-        {0 , 0 , 0 , 0 , 0 },
-        {0 , 2 , 6 , 0 , 0 }
-    };
+    int numRows, numCols;
+
+    // Get the number of rows and columns from the user
+    cout << "Enter the number of rows in the sparse matrix: ";
+    cin >> numRows;
+    cout << "Enter the number of columns in the sparse matrix: ";
+    cin >> numCols;
+
+    int sparseMatrix[numRows][numCols];
+
+    // Get the elements of the sparse matrix from the user
+    cout << "Enter the elements of the sparse matrix:" << endl;
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            cin >> sparseMatrix[i][j];
+        }
+    }
 
     Node* head = nullptr;
     Node* current = nullptr;
 
     // Create a linked list to store non-zero elements
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 5; j++) {
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
             if (sparseMatrix[i][j] != 0) {
                 if (head == nullptr) {
                     head = new Node(i, j, sparseMatrix[i][j]);
